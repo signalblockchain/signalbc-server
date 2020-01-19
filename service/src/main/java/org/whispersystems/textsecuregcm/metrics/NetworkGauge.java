@@ -19,6 +19,7 @@ public abstract class NetworkGauge implements Gauge<Double> {
 
     long           bytesSent     = 0;
     long           bytesReceived = 0;
+    long           bytesToral    = 0;
 
     String interfaceStats;
 
@@ -28,9 +29,10 @@ public abstract class NetworkGauge implements Gauge<Double> {
         if (!stats[1].equals("lo:")) {
           bytesReceived += Long.parseLong(stats[2]);
           bytesSent     += Long.parseLong(stats[10]);
+          bytesTotal    += (bytesReceived + bytesSent);
         }
       }
 
-    return new Pair<>(bytesSent, bytesReceived);
+    return new Pair<>(bytesSent, bytesReceived, bytesTotal);
   }
 }
